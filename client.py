@@ -13,9 +13,11 @@ with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as s:
         primoNumero=float(primoNumero)
         operazione=input("Inserisci l'operazione (+,-,*,/,%)")
         secondoNumero=float(input("Inserisci il secondo numero"))
-        messaggio={'primoNumero':primoNumero, 
-        'operazione'=operazione, 
-        'secondoNumero'=secondoNumero}
+        messaggio={
+            'primoNumero':primoNumero, 
+            'operazione':operazione, 
+            'secondoNumero':secondoNumero
+        }
         messaggio=json.dumps(messaggio) #trasforma l'oggetto in una stringa
         s.sendall(messaggio.encode("UTF-8"))
         data=s.recv(1024)
