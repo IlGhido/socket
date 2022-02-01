@@ -46,11 +46,13 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
                     for studente, materiaPagella in voti.items():
                         for i in materiaPagella:
                             if(materia == i[0]):
+                                print(i[0])
                                 presente=True
                     if(presente == False):
                         voto = int(serieStringhe[3])
                         ore = int(serieStringhe[4])
-                        voti[nome] = [materia, voto, ore]
+                        nuovaMateria = [materia, voto, ore]
+                        voti[nome].append(nuovaMateria)
                         cs.sendall("voto inserito".encode())
                     else:
                         cs.sendall("materia già presente".encode())
@@ -69,7 +71,5 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
                     listaStringa = ["studente non presente"]
                     serialized_voti = json.dumps(listaStringa)
                     cs.sendall(serialized_voti.encode())
-
             else:
                 cs.sendall("Comando non trovato".encode())
-            #cs.sendall(ris.encode("UTF-8"))
