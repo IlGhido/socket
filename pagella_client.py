@@ -20,7 +20,10 @@ with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as s:
         data=s.recv(1024)
         if (stringa.find('#list') != -1):
             deserialized_voti = json.loads(data)
-        # elif (stringa.find('#set') != -1 or stringa.find('#get') != -1 or stringa.find('#put') != -1):
+        elif (stringa.find('#get') != -1):
+            deserialized_voti = json.loads(data)
+            deserialized_voti = deserialized_voti[0]
         else:
             deserialized_voti = data.decode()
-        print("\n"+deserialized_voti+"\n")
+        print("\n")
+        print(deserialized_voti,"\n")

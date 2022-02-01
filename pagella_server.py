@@ -30,26 +30,45 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             elif (stringa.find('#set') != -1):
                 serieStringhe=stringa.split('/')
                 nome = serieStringhe[1]
-                voti[nome] = []
-                cs.sendall("studente inserito".encode())
-                # materia = serieStringhe[1]
-                # voto = serieStringhe[2]
-                # ore = serieStringhe[3]
+                if(nome in voti):
+                    cs.sendall("studente già presente".encode())
+                else:
+                    voti[nome] = []
+                    cs.sendall("studente inserito".encode())
             
             elif (stringa.find('#put') != -1):
+                presente = False
+                # Il comando put deve verificare che lo studente esista e che la materia non esista
                 serieStringhe=stringa.split('/')
                 nome = serieStringhe[1]
                 materia = serieStringhe[2]
-                voto = int(serieStringhe[3])
-                ore = int(serieStringhe[4])
-                voti[nome] = [materia, voto, ore]
-                cs.sendall("voto inserito".encode())
-            
+                if(nome in voti):
+                    for studente, materiaPagella in voti.items():
+                        for i in materiaPagella:
+                            if(materia == i[0]):
+                                presente=True
+                    if(presente == False):
+                        voto = int(serieStringhe[3])
+                        ore = int(serieStringhe[4])
+                        voti[nome] = [materia, voto, ore]
+                        cs.sendall("voto inserito".encode())
+                    else:
+                        cs.sendall("materia già presente".encode())
+                else:
+                    cs.sendall("studente non presente".encode())
+
+
             elif (stringa.find('#get') != -1):
+                stringaVoti = ""
                 serieStringhe=stringa.split('/')
                 nome = serieStringhe[1]
-                serialized_voti = json.dumps(voti[nome])
-                cs.sendall(serialized_voti.encode())
+                if(nome in voti):
+                    serialized_voti = json.dumps(voti[nome])
+                    cs.sendall(serialized_voti.encode())
+                else:
+                    listaStringa = ["studente non presente"]
+                    serialized_voti = json.dumps(listaStringa)
+                    cs.sendall(serialized_voti.encode())
 
             else:
                 cs.sendall("Comando non trovato".encode())
