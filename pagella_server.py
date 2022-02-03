@@ -44,10 +44,12 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
                 materia = serieStringhe[2]
                 if(nome in voti):
                     for studente, materiaPagella in voti.items():
-                        for i in materiaPagella:
-                            if(materia == i[0]):
-                                print(i[0])
-                                presente=True
+                        if(studente == nome):
+                            for i in materiaPagella:
+                                print(materiaPagella)
+                                if(materia == i[0]):
+                                    print(i[0])
+                                    presente=True
                     if(presente == False):
                         voto = int(serieStringhe[3])
                         ore = int(serieStringhe[4])

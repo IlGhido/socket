@@ -22,7 +22,6 @@ with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as s:
             deserialized_voti = json.loads(data)
         elif (stringa.find('#get') != -1):
             deserialized_voti = json.loads(data)
-            deserialized_voti = deserialized_voti[0]
         else:
             deserialized_voti = data.decode()
         print("\n")
