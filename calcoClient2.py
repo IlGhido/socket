@@ -6,12 +6,12 @@ PORT=65432
 
 def invia_comandi(sock_service):
     while True:
-        primoNumero=input("Inserisci il primo numero exit() per uscire")
+        primoNumero=input("Inserisci il primo numero exit() per uscire: ")
         if primoNumero=="exit()":
             break
         primoNumero=float(primoNumero)
-        operazione=input("Inserisci l'operazione (+,-,*,/,%)")
-        secondoNumero=float(input("Inserisci il secondo numero"))
+        operazione=input("Inserisci l'operazione (+,-,*,/,%): ")
+        secondoNumero=float(input("Inserisci il secondo numero: "))
         messaggio={
             'primoNumero':primoNumero, 
             'operazione':operazione, 
@@ -24,8 +24,8 @@ def invia_comandi(sock_service):
 
 def connessione_server(address,port):
     sock_service = socket.socket()
-    sock_service.connect((HOST, PORT))
-    print("Connesso a " + str((HOST, PORT)))
+    sock_service.connect((address, port))
+    print("Connesso a " + str((address, port)))
     invia_comandi(sock_service)
 
 if __name__=='__main__':
