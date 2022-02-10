@@ -5,9 +5,9 @@ import json
 HOST="127.0.0.1"
 PORT=65432
 
-def ricevi_comandi(sock_service, addr_client):
+def ricevi_comandi(sock_service): #funzione che permette al server di ricevere i comandi inviati dal client
     print("avviato")
-    while True:
+    while True: #serie di operazioni, il server riceve i dati dal client tramite il sock, li elabora eseguendo l'operazione e restituisce il risultato, infine chiude il sock
         data=sock_service.recv(1024)
         if not data:
             break
@@ -36,18 +36,18 @@ def ricevi_comandi(sock_service, addr_client):
         sock_service.sendall(ris.encode("UTF-8"))
     sock_service.close()
 
-def ricevi_connessioni(sock_listen):
+def ricevi_connessioni(sock_listen): #funzione che permette di ricevere la connessione dai client, e poi crea il thread per mandare in esecuzione le richieste
     while True:
         sock_service, addr_client = sock_listen.accept()
         print("\nConnessione ricevuta da " + str(addr_client))
         print("\nCreo un thread per servire le richieste")
-        try:
+        try: #caso in cui il thread viene creato con successo
             Thread(target=ricevi_comandi, args=(sock_service, addr_client)).start()
-        except:
+        except: #caso in cui il thread non viene avviato con successo, si chiude la connessione con il client
             print("Il thread non si avvia")
             sock_listen.close()
 
-def avvia_server(HOST,PORT):
+def avvia_server(HOST,PORT): #funzione che permette di avviare un server, quindi si prepara a ricevere le connessioni dei client
     sock_listen=socket.socket()
     sock_listen.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     sock_listen.bind((HOST, PORT))

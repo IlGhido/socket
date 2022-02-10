@@ -5,7 +5,7 @@ HOST="127.0.0.1"
 PORT=65432
 
 def invia_comandi(sock_service):
-    while True:
+    while True: #serie di operazioni che permette all'utente di inserire i numeri e l'operazione da effettuare con la calcolatrice, poi invia il messaggio al server. Quando gli torna il messaggio lo decodifica e lo restituisce in output.
         primoNumero=input("Inserisci il primo numero exit() per uscire: ")
         if primoNumero=="exit()":
             break
@@ -22,7 +22,7 @@ def invia_comandi(sock_service):
         data=sock_service.recv(1024)
         print("Risultato: ", data.decode())
 
-def connessione_server(address,port):
+def connessione_server(address,port): #funzione che raggruppa le istruzioni per connettersi al server e poi fa l'output in caso di connessione riuscita
     sock_service = socket.socket()
     sock_service.connect((address, port))
     print("Connesso a " + str((address, port)))
