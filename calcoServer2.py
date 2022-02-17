@@ -5,7 +5,7 @@ import json
 HOST="127.0.0.1"
 PORT=65432
 
-def ricevi_comandi(sock_service): #funzione che permette al server di ricevere i comandi inviati dal client
+def ricevi_comandi(sock_service,addr_client): #funzione che permette al server di ricevere i comandi inviati dal client
     print("avviato")
     while True: #serie di operazioni, il server riceve i dati dal client tramite il sock, li elabora eseguendo l'operazione e restituisce il risultato, infine chiude il sock
         data=sock_service.recv(1024)
