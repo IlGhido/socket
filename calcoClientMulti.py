@@ -25,17 +25,19 @@ def genera_richieste(num,address,port):
     #1. rimpiazzare questa parte con la generazione di operazioni e numeri random, non vogliamo inviare sempre 3+5
     primoNumero=random.randint(0,100)
     secondoNumero=random.randint(0,100)
-    numeroOperazione=random.randint(1,5)
-    if(numeroOperazione==1):
-        operazione="+"
-    elif(numeroOperazione==2):
-        operazione="-"
-    elif(numeroOperazione==3):
-        operazione="*"
-    elif(numeroOperazione==4):
-        operazione="/"
-    else:
-        operazione="%"
+    numeroOperazione=random.randint(0,4)
+    operazioni=["+","-","*","/","%"]
+    operazione=operazioni[numeroOperazione]
+    # if(numeroOperazione==1):
+    #     operazione="+"
+    # elif(numeroOperazione==2):
+    #     operazione="-"
+    # elif(numeroOperazione==3):
+    #     operazione="*"
+    # elif(numeroOperazione==4):
+    #     operazione="/"
+    # else:
+    #     operazione="%"
     #primoNumero=3
     #operazione="+"
     #secondoNumero=5
@@ -74,13 +76,13 @@ if __name__ == '__main__':
     threads=[]
     # 4 ciclo per chiamare NUM_WORKERS volte la funzione genera richieste tramite l'avvio di un thread al quale passo i parametri args=(num,SERVER_ADDRESS, SERVER_PORT,)
     for num in range(NUM_WORKERS):
-        trd = threading.Thread(target=genera_richieste, args=(num, SERVER_ADDRESS, SERVER_PORT))
+        thread = threading.Thread(target=genera_richieste, args=(num, SERVER_ADDRESS, SERVER_PORT))
         # ad ogni iterazione appendo il thread creato alla lista threads
-        threads.append(trd)
+        threads.append(thread)
     # 5 avvio tutti i thread
     for thread in threads:
         thread.start()
-    # 6 aspetto la fine di tutti i thread 
+    # 6 aspetto la fine di tutti i thread
     for thread in threads:
         thread.join()
     end_time=time.time()
