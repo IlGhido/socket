@@ -100,8 +100,8 @@ if __name__ == '__main__':
     processes=[]
     # 7 ciclo per chiamare NUM_WORKERS volte la funzione genera richieste tramite l'avvio di un processo al quale passo i parametri args=(num,SERVER_ADDRESS, SERVER_PORT,)
     for num in range(NUM_WORKERS): #NUM_WORKERS volte
-        process = multiprocessing.Process(target=genera_richieste, args=(num, SERVER_ADDRESS, SERVER_PORT)) #creo il thread che svolge genera_richieste, con come argomenti args
-        # ad ogni iterazione appendo il thread creato alla lista threads
+        process = multiprocessing.Process(target=genera_richieste, args=(num, SERVER_ADDRESS, SERVER_PORT)) #creo il proceso che svolge genera_richieste, con come argomenti args
+        # ad ogni iterazione appendo il processo creato alla lista processes
         processes.append(process)
     # 8 avvio tutti i processi
     for process in processes:
