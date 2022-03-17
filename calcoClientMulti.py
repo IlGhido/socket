@@ -45,7 +45,7 @@ def genera_richieste(num,address,port):
     #secondoNumero=5
 
     #2. comporre il messaggio, inviarlo come json e ricevere il risultato
-
+    
     #compongo il messaggio
     messaggio={
         'primoNumero':primoNumero, 
