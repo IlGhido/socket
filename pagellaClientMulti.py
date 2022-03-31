@@ -120,12 +120,12 @@ def genera_richieste3(num,address,port):
     materie=["Matematica","Italiano","Inglese","Storia","Geografia"]
 
     for studente in studenti:
-        pagella = []
+        votiEAssenze = []
         for materia in materie:
             voto = random.randint(1,10)
             assenze = random.randint(1,5)
-            pagella.append((materia, voto, assenze))
-        tabellone[studente] = pagella
+            votiEAssenze.append((materia, voto, assenze))
+        tabellone[studente] = votiEAssenze
     #   Per ognuna delle materie ammesse: Matematica, Italiano, inglese, Storia e Geografia)
     #   generazione di un voto (valori ammessi 1 ..10)
     #   e delle assenze (valori ammessi 1..5) 
