@@ -61,7 +61,6 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
                 else:
                     cs.sendall("studente non presente".encode())
 
-
             elif (stringa.find('#get') != -1):
                 stringaVoti = ""
                 serieStringhe=stringa.split('/')

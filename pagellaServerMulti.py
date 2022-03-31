@@ -91,26 +91,21 @@ def ricevi_comandi3(sock_service,addr_client):
         data=json.loads(data)
         #....
         #1.recuperare dal json il tabellone
-        tabellone = data['tabellone']
-        tabelloneMedia = {}
-        sommaVoti=0
-        sommaAssenze=0
-        for studente in tabellone:
-            tabelloneMedia[studente] = studente
-            for pagella in tabellone[studente]:
-                print(pagella[1])
-                sommaVoti+=pagella[1]
-                sommaAssenze+=pagella[2]
-            mediaVoti=sommaVoti/len(tabellone[studente])
-            tabelloneMedia[studente].append((mediaVoti, sommaAssenze))
+        for studente in data:
+            # tabelloneMedia[studente] = studente
+            pagella = data[studente]
             sommaVoti=0
             sommaAssenze=0
-        
-    
+            for num, contenuto in enumerate(pagella):
+                sommaVoti+=int(contenuto[1])
+                sommaAssenze+=int(contenuto[2])
+            mediaVoti=sommaVoti/num
+            messaggio = {
+                'studente': studente,
+                'media': mediaVoti,
+                'assenze': sommaAssenze
+            }
         #2. restituire per ogni studente la media dei voti e somma delle assenze :
-        messaggio = {
-            "tabelloneMedia": tabelloneMedia
-        }
         messaggio=json.dumps(messaggio)
         sock_service.sendall(messaggio.encode("UTF-8"))
     

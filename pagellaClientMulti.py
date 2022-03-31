@@ -120,11 +120,12 @@ def genera_richieste3(num,address,port):
     materie=["Matematica","Italiano","Inglese","Storia","Geografia"]
 
     for studente in studenti:
-        tabellone[studente] = studente
+        pagella = []
         for materia in materie:
             voto = random.randint(1,10)
             assenze = random.randint(1,5)
-            tabellone[studente] = ((materia, voto, assenze))
+            pagella.append((materia, voto, assenze))
+        tabellone[studente] = pagella
     #   Per ognuna delle materie ammesse: Matematica, Italiano, inglese, Storia e Geografia)
     #   generazione di un voto (valori ammessi 1 ..10)
     #   e delle assenze (valori ammessi 1..5) 
@@ -144,8 +145,8 @@ def genera_richieste3(num,address,port):
     if not data:
         print(f"{threading.current_thread().name}: Server non risponde. Exit")
     else:
-        for studente in data["tabelloneMedia"]:
-            print("Lo studente ", studente, "ha una media di ", data["tabelloneMedia"][studente][1], "e un totale di assenze di ", data["tabelloneMedia"][studente][2])
+        for e in data:
+            print("Lo studente ", {e['studente']}, "ha una media di ", {e['media']}, "e un totale di assenze di ", {e['assenze']})
 
 if __name__ == '__main__':
     start_time=time.time()
