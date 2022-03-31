@@ -111,7 +111,6 @@ def ricevi_comandi3(sock_service,addr_client):
     
     sock_service.close()
 
-
 def ricevi_connessioni(sock_listen):
     while True:
         sock_service, addr_client = sock_listen.accept()
